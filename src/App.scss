@@ -1,27 +1,63 @@
-html, body, #root {
+* {
+  box-sizing: border-box;
+}
+
+html, body, #rootб .app  {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-
-
-.app {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0px 80px;
-  background-color: #f0f0f0; 
+  background-color: #b8c1b4; 
 }
 
 .content {
-  flex: 1; 
+  height: 100vh; 
+  background-color: #b9c1b1;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: stretch; 
+  padding: 60px 120px;
+  box-sizing: border-box;
 }
 
-.home {
-  min-height: calc(100vh - 60px);
+.wrapper {
+  flex: 1; 
+  background-color: #ebebeb;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  box-sizing: border-box;
+  min-height: fit-content;
+}
+
+.form-fieldTitleInput {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-bottom: 20px;
+  justify-content: flex-start;
+  align-items: center;
+
+  h6 {
+    margin-right: 20px;
+  }
+}
+
+.MuiToggleButtonGroup-middleButton,
+.MuiToggleButtonGroup-lastButton {
+  margin-left: 0 !important;
+  border-left: none !important;
+  border-radius: 6px !important;
+  font-weight: bold !important;
+}
+
+.MuiToggleButton-root {
+  border: 0px solid #ccc !important;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 6px !important;
+  margin: 0 !important;
+  font-weight: bold !important;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  background-color: #edcc7b !important;
+  color: #2b2b2b !important;
 }

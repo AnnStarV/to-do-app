@@ -19,7 +19,7 @@ import Analytics from "@mui/icons-material/Analytics";
 
 const menuItemsPrimary = [
   { label: "Create", icon: <AddCircleOutline />, path: "/create" },
-  { label: "My Day", icon: <WbSunny />, path: "/myday" },
+  { label: "My Day", icon: <WbSunny />, path: "/myDay" },
   { label: "Important", icon: <Grade />, path: "/important" },
   { label: "Stats", icon: <Analytics />, path: "/stats" },
 ];
@@ -52,8 +52,8 @@ export default function TemporaryDrawer() {
       <Box
         sx={{
           position: "fixed",
-          top: "20px",
-          left: "20px",
+          top: "60px",
+          left: "40px",
           zIndex: 1300,
         }}
       >
@@ -84,47 +84,83 @@ export default function TemporaryDrawer() {
           toggleDrawer(false)();
           setTimeout(() => setVisible(true), 100);
         }}
+        sx={{ zIndex: 5000 }}
       >
-        <Box sx={{ width: 250 }} role="presentation">
-          <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1, mt: 2, marginLeft: 2}}>
-            Menu
-          </Typography>
-          <List>
-            {menuItemsPrimary.map(({ label, icon, path }) => (
-              <ListItem
-                key={label}
-                disablePadding
-                onClick={handleNavigate(path)}
-              >
-                <ListItemButton selected={location.pathname === path}>
-                  <ListItemIcon>{icon}</ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+        <Box sx={{ width: 280 }} role="presentation">
+          <Box sx={{ paddingLeft: "20px" }} role="presentation">
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: "bold", mb: 2, mt: 2, marginLeft: 2 }}
+            >
+              Menu
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{
+                fontWeight: "bold",
+                mb: 1,
+                mt: 2,
+                display: "inline-block",
+                marginLeft: 0,
+                color: "#262626",
+                textTransform: "uppercase",
+              }}
+            >
+              Tasks
+            </Typography>
+            <List>
+              {menuItemsPrimary.map(({ label, icon, path }) => (
+                <ListItem
+                  key={label}
+                  disablePadding
+                  onClick={handleNavigate(path)}
+                >
+                  <ListItemButton selected={location.pathname === path}>
+                    <ListItemIcon>{icon}</ListItemIcon>
+                    <ListItemText primary={label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
           <Divider />
-          <List>
-            {menuItemsSecondary.map(({ label, icon, path }) => (
-              <ListItem
-                key={label}
-                disablePadding
-                onClick={handleNavigate(path)}
-              >
-                <ListItemButton selected={location.pathname === path}>
-                  <ListItemIcon>
-                    {" "}
-                    <img
-                      src={icon}
-                      alt={label}
-                      style={{ width: "24px", height: "24px" }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          <Box sx={{ paddingLeft: "20px" }} role="presentation">
+            <Typography
+              variant="caption"
+              sx={{
+                fontWeight: "bold",
+                mb: 1,
+                mt: 3,
+                marginLeft: 0,
+                display: "inline-block",
+                color: "#262626",
+                textTransform: "uppercase",
+              }}
+            >
+              Categories
+            </Typography>
+            <List>
+              {menuItemsSecondary.map(({ label, icon, path }) => (
+                <ListItem
+                  key={label}
+                  disablePadding
+                  onClick={handleNavigate(path)}
+                >
+                  <ListItemButton selected={location.pathname === path}>
+                    <ListItemIcon>
+                      {" "}
+                      <img
+                        src={icon}
+                        alt={label}
+                        style={{ width: "24px", height: "24px" }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={label} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
         </Box>
       </Drawer>
     </>
