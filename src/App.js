@@ -6,6 +6,7 @@ import TemporaryDrawer from './components/TemporaryDrawer';
 
 import HomePage from './pages/MyDayPage';
 import CreatePage from './pages/CreatePage';
+import ImportantTasksPage from './pages/ImportantTasksPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Navigate to="/myDay" />} />
             <Route path="/myday" element={<HomePage />} />
             <Route path="/create" element={<CreatePage />} />
+            <Route path="/important" element={<ImportantTasksPage />} />
           </Routes>
         </main>
       </div>

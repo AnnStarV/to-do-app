@@ -4,8 +4,11 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
+
+import Checkbox from "@mui/material/Checkbox";
+import Grade from "@mui/icons-material/Grade";
+import Star from "@mui/icons-material/Star";
+
 
 const randomPlaceholders = [
   "Buy mom flowers",
@@ -35,7 +38,16 @@ const getRandomPlaceholder = () => {
   return randomPlaceholders[randomIndex];
 };
 
-const FieldComponent = () => {
+const FieldComponent = ({
+  title,
+  setTitle,
+  description,
+  setDescription,
+  isImportant,
+  setIsImportant,
+  category,
+  setCategory,
+}) => {
   const [placeholder, setPlaceholder] = React.useState(getRandomPlaceholder());
   const titleInputRef = React.useRef(null);
 
@@ -45,12 +57,14 @@ const FieldComponent = () => {
     }
   };
 
-  const [category, setCategory] = React.useState("work");
-
-  const handleChange = (event, newCategory) => {
+  const handleChangeCategory = (event, newCategory) => {
     if (newCategory !== null) {
       setCategory(newCategory);
     }
+  };
+
+  const handleChangeImportance = (event) => {
+    setIsImportant(event.target.checked);
   };
 
   return (
@@ -75,6 +89,8 @@ const FieldComponent = () => {
             multiline
             inputRef={titleInputRef}
             onMouseEnter={handleMouseEnter}
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
             maxRows={4}
             placeholder={placeholder}
             sx={{
@@ -90,14 +106,14 @@ const FieldComponent = () => {
               },
             }}
           />
+
+           <Checkbox icon={<Grade />} checkedIcon={<Star />} sx={{ "&.Mui-checked": { color: "#EDCC7B" } }} checked={isImportant} onChange={handleChangeImportance} />
         </Box>
         <Box className="form-fieldDescriptionInput">
           <Typography
             variant="h6"
             sx={{
               fontWeight: "bold",
-              mb: 1,
-              mt: 2,
               marginLeft: 0,
               color: "#262626",
             }}
@@ -110,7 +126,9 @@ const FieldComponent = () => {
             label="Add a description"
             multiline
             rows={4}
-            defaultValue=""
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+        
             sx={{
               width: "470px !important",
               margin: "8px 8px 8px 0px !important",
@@ -143,7 +161,7 @@ const FieldComponent = () => {
           <ToggleButtonGroup
             value={category}
             exclusive
-            onChange={handleChange}
+            onChange={handleChangeCategory}
             aria-label="Category"
             sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}
           >
@@ -161,23 +179,6 @@ const FieldComponent = () => {
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
-
-        <Button
-          variant="contained"
-          endIcon={<AddIcon />}
-          sx={{
-            backgroundColor: "#EDCC7B",
-            color: "#2b2b2b",
-            fontWeight: "bold",
-            marginTop: "40px",
-            padding: "10px 20px",
-            "&:hover": {
-              backgroundColor: "#e8bf61",
-            },
-          }}
-        >
-          Add New Task
-        </Button>
       </Box>
     </>
   );
