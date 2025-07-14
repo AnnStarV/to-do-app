@@ -1,12 +1,3 @@
 {
-  "tasks": [
-    {
-      "id": "ce36",
-      "title": "Buy mom flowers",
-      "description": "I need to buy mom flowers this week",
-      "isImportant": true,
-      "category": "another",
-      "createdAt": "2025-07-10T18:46:18.760Z"
-    }
-  ]
+  "tasks": []
 }

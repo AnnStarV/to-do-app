@@ -4,23 +4,40 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
-import FieldComponent from "../components/FieldComponent";
+import CreateTaskComponent from "../components/CreateTaskComponent";
 import { createTask } from "../services/taskService";
 
 const CreatePage = () => {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [isImportant, setIsImportant] = React.useState(false);
-  const [category, setCategory] = React.useState("");
+  const [category, setCategory] = React.useState("another");
+  const [cardColor, setCardColor] = React.useState("#e1dfda");
+
+  const colors = {
+    work: "#d0e0ed",
+    home: "#aabfb2",
+    hobby: "#d3bde8",
+    another: "#e1dfda",
+  };
 
   const handleSubmit = async () => {
+
+    if (!title.trim()) {
+      alert("Title is required to create a task.");
+      return;
+    }
+
     const task = {
       title,
       description,
       isImportant,
       category,
+      cardColor,
+      completed: false, 
       createdAt: new Date().toISOString(),
     };
+    
 
     try {
       const result = await createTask(task);
@@ -28,7 +45,8 @@ const CreatePage = () => {
       setTitle("");
       setDescription("");
       setIsImportant(false);
-      setCategory("");
+      setCategory("another");
+      setCardColor("#e1dfda");
     } catch (error) {
       console.error("Error creating task:", error);
     }
@@ -36,7 +54,7 @@ const CreatePage = () => {
 
   return (
     <div className="wrapper">
-      <Box sx={{ padding: "0px 40px" }}>
+      <Box sx={{ padding: "0px 40px"}}>
         <Typography
           variant="h4"
           sx={{ fontWeight: "bold", mb: 1, marginLeft: 2, color: "#262626" }}
@@ -52,7 +70,7 @@ const CreatePage = () => {
           }}
         >
           <Box sx={{ mt: "20px", ml: "20px" }} role="presentation">
-            <FieldComponent
+            <CreateTaskComponent
               title={title}
               setTitle={setTitle}
               description={description}
@@ -61,6 +79,9 @@ const CreatePage = () => {
               setIsImportant={setIsImportant}
               category={category}
               setCategory={setCategory}
+              cardColor={cardColor}
+              setCardColor={setCardColor}
+              colors={colors}
             />
             <Box
               sx={{

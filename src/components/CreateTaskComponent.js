@@ -47,6 +47,8 @@ const FieldComponent = ({
   setIsImportant,
   category,
   setCategory,
+  setCardColor,
+  colors
 }) => {
   const [placeholder, setPlaceholder] = React.useState(getRandomPlaceholder());
   const titleInputRef = React.useRef(null);
@@ -60,6 +62,7 @@ const FieldComponent = ({
   const handleChangeCategory = (event, newCategory) => {
     if (newCategory !== null) {
       setCategory(newCategory);
+      setCardColor(colors[newCategory]);
     }
   };
 
@@ -68,6 +71,8 @@ const FieldComponent = ({
   };
 
   return (
+
+   
     <>
       <Box
         component="form"

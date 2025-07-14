@@ -32,3 +32,32 @@ export const getAllTasks = async () => {
 
   return await response.json();
 };
+
+
+export const deleteTask = async(id) => {
+  const response = await fetch(`http://localhost:4000/tasks/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Ошибка при удалении задачи");
+  }
+
+  return await response.json();
+}
+
+export const updateTaskCompleted = async (taskId, completed) => {
+  const response = await fetch(`http://localhost:4000/tasks/${taskId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ completed }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update task");
+  }
+
+  return response.json();
+};
