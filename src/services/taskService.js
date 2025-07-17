@@ -12,12 +12,23 @@ export const createTask = async (task) => {
   return await response.json();
 };
 
-
 export const getImportantTasks = async () => {
   const response = await fetch("http://localhost:4000/tasks?isImportant=true");
 
   if (!response.ok) {
     throw new Error("Ошибка при загрузке задач");
+  }
+
+  return await response.json();
+};
+
+export const getTodaysTasks = async () => {
+  const today = new Date().toISOString().slice(0, 10);
+
+  const response = await fetch(`http://localhost:4000/tasks?createdAt=${today}`);
+
+  if (!response.ok) {
+    throw new Error("Ошибка при загрузке задач на сегодня");
   }
 
   return await response.json();
@@ -33,8 +44,7 @@ export const getAllTasks = async () => {
   return await response.json();
 };
 
-
-export const deleteTask = async(id) => {
+export const deleteTask = async (id) => {
   const response = await fetch(`http://localhost:4000/tasks/${id}`, {
     method: "DELETE",
   });
@@ -44,7 +54,7 @@ export const deleteTask = async(id) => {
   }
 
   return await response.json();
-}
+};
 
 export const updateTaskCompleted = async (taskId, completed) => {
   const response = await fetch(`http://localhost:4000/tasks/${taskId}`, {

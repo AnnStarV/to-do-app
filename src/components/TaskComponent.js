@@ -40,6 +40,7 @@ const TaskComponent = ({
         backgroundColor: cardColor,
         margin: "10px",
         display: "flex",
+        width: "400px", 
         flexDirection: "row",
       }}
     >

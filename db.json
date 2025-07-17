@@ -1,3 +1,14 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "de05",
+      "title": "do the shopping",
+      "description": "",
+      "isImportant": true,
+      "category": "another",
+      "cardColor": "#e1dfda",
+      "completed": false,
+      "createdAt": "2025-07-16"
+    }
+  ]
 }

@@ -5,33 +5,34 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import TaskComponent from "../components/TaskComponent";
 import {
-  getImportantTasks,
+  getTodaysTasks,
   updateTaskCompleted,
   deleteTask,
 } from "../services/taskService";
 
-const ImportantTasksList = () => {
-  const [importantTasks, setImportantTasks] = useState(null);
+const TodayPage = () => {
+  const [todaysTasks, setTodaysTasks] = useState(null);
   const [completedTasks, setCompletedTasks] = useState([false]);
 
   useEffect(() => {
-    const fetchImportantTasks = async () => {
+    const fetchTodaysTasks = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 500));
-        const tasks = await getImportantTasks();
-        setImportantTasks(tasks);
+
+        const tasks = await getTodaysTasks();
+        setTodaysTasks(tasks);
       } catch (error) {
-        console.error("Error fetching important tasks:", error);
-      }
+        console.log("Error fetching today's tasks:", error);
+      } 
     };
 
-    fetchImportantTasks();
+    fetchTodaysTasks();
   }, []);
 
   const handleDeleteTask = async (id) => {
     try {
       await deleteTask(id);
-      setImportantTasks((prev) => prev.filter((task) => task.id !== id));
+      setTodaysTasks((prev) => prev.filter((task) => task.id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -41,7 +42,7 @@ const ImportantTasksList = () => {
     try {
       const updatedTask = await updateTaskCompleted(taskId, !currentCompleted);
 
-      setImportantTasks((prev) =>
+      setTodaysTasks((prev) =>
         prev.map((task) =>
           task.id === taskId
             ? { ...task, completed: updatedTask.completed }
@@ -57,10 +58,10 @@ const ImportantTasksList = () => {
     <div className="wrapper">
       <Box>
         <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-          Important Tasks
+          Todays Tasks
         </Typography>
 
-        {importantTasks === null ? (
+        {todaysTasks === null ? (
           <Box
             sx={{
               display: "flex",
@@ -72,7 +73,7 @@ const ImportantTasksList = () => {
           >
             <CircularProgress />
           </Box>
-        ) : importantTasks && importantTasks.length > 0 ? (
+        ) : todaysTasks && todaysTasks.length > 0 ? (
           <Box
             sx={{
               display: "grid",
@@ -82,7 +83,7 @@ const ImportantTasksList = () => {
               justifyItems: "flex-start",
             }}
           >
-            {importantTasks.map((task) => (
+            {todaysTasks.map((task) => (
               <TaskComponent
                 key={task.id}
                 id={task.id}
@@ -108,10 +109,10 @@ const ImportantTasksList = () => {
           >
             <img
               src="/images/noImportant.png"
-              alt="No Important Tasks"
+              alt="No Todays Tasks"
               style={{ width: "auto", height: "500px" }}
             />
-            <Typography variant="body1">No important tasks found.</Typography>
+            <Typography variant="body1">No todays tasks found.</Typography>
           </Box>
         )}
       </Box>
@@ -119,4 +120,4 @@ const ImportantTasksList = () => {
   );
 };
 
-export default ImportantTasksList;
+export default TodayPage;

@@ -4,7 +4,7 @@ import './App.scss';
 
 import TemporaryDrawer from './components/TemporaryDrawer';
 
-import HomePage from './pages/MyDayPage';
+import TodayPage from './pages/TodayPage';
 import CreatePage from './pages/CreatePage';
 import ImportantTasksPage from './pages/ImportantTasksPage';
 
@@ -16,7 +16,7 @@ function App() {
         <main className="content">
           <Routes>
             <Route path="/" element={<Navigate to="/myDay" />} />
-            <Route path="/myday" element={<HomePage />} />
+            <Route path="/myday" element={<TodayPage />} />
             <Route path="/create" element={<CreatePage />} />
             <Route path="/important" element={<ImportantTasksPage />} />
           </Routes>

@@ -35,7 +35,7 @@ const CreatePage = () => {
       category,
       cardColor,
       completed: false, 
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toISOString().slice(0, 10),
     };
     
 
