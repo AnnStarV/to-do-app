@@ -22,6 +22,16 @@ export const getImportantTasks = async () => {
   return await response.json();
 };
 
+export const getTasksByCategory = async (category) => {
+  const response =  await fetch(`http://localhost:4000/tasks?category=${category}`);
+
+  if (!response.ok) {
+    throw new Error("Ошибка при загрузке задач по категории");
+  }
+
+  return await response.json();
+};
+
 export const getTodaysTasks = async () => {
   const today = new Date().toISOString().slice(0, 10);
 
