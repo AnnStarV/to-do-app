@@ -12,20 +12,25 @@ import {
 
 const TodayPage = () => {
   const [todaysTasks, setTodaysTasks] = useState(null);
-  const [completedTasks, setCompletedTasks] = useState([false]);
+
+  const fetchTodaysTasks = async () => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const tasks = await getTodaysTasks();
+
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          setTodaysTasks(tasks.filter((task) => task.completed === false));
+          resolve(); 
+        }, 800)
+      );
+    } catch (error) {
+      console.log("Error fetching today's tasks:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchTodaysTasks = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        const tasks = await getTodaysTasks();
-        setTodaysTasks(tasks);
-      } catch (error) {
-        console.log("Error fetching today's tasks:", error);
-      } 
-    };
-
     fetchTodaysTasks();
   }, []);
 
@@ -40,15 +45,25 @@ const TodayPage = () => {
 
   const toggleCompleted = async (taskId, currentCompleted) => {
     try {
-      const updatedTask = await updateTaskCompleted(taskId, !currentCompleted);
+      const updatedTask = await updateTaskCompleted(
+        taskId,
+        !currentCompleted,
+        new Date().toISOString().slice(0, 10)
+      );
 
       setTodaysTasks((prev) =>
         prev.map((task) =>
           task.id === taskId
-            ? { ...task, completed: updatedTask.completed }
+            ? {
+                ...task,
+                completed: updatedTask.completed,
+                completedAt: updatedTask.completedAt,
+              }
             : task
         )
       );
+
+      fetchTodaysTasks();
     } catch (error) {
       console.error("Error updating task:", error);
     }

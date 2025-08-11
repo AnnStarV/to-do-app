@@ -36,6 +36,7 @@ const CreatePage = () => {
       cardColor,
       completed: false, 
       createdAt: new Date().toISOString().slice(0, 10),
+      completedAt: new Date().toISOString().slice(0, 10),
     };
     
 

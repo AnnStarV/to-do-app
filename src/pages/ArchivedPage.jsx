@@ -2,43 +2,44 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-import { TransitionGroup } from "react-transition-group";
 
 import TaskComponent from "../components/TaskComponent";
 import {
-  getImportantTasks,
+  getAllTasks,
   updateTaskCompleted,
   deleteTask,
 } from "../services/taskService";
 
-const ImportantTasksList = () => {
-  const [importantTasks, setImportantTasks] = useState(null);
+const ArchivedPage = () => {
+  const [archivedTasks, setArchivedTasks] = useState(null);
 
-  const fetchImportantTasks = async () => {
+  const fetchArchivedTasks = async () => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
-      const tasks = await getImportantTasks();
+      const tasks = await getAllTasks();
 
       await new Promise((resolve) =>
         setTimeout(() => {
-          setImportantTasks(tasks.filter((task) => task.completed === false));
-          resolve(); 
+          const filteredTasks = tasks.filter((task) => task.completed);
+          console.log("Filtered tasks:", filteredTasks); // ✅ Покажет правильный результат
+          setArchivedTasks(filteredTasks);
+          resolve();
         }, 800)
       );
     } catch (error) {
-      console.error("Error fetching important tasks:", error);
+      console.log("Error fetching archived tasks:", error);
     }
   };
 
   useEffect(() => {
-    fetchImportantTasks();
+    fetchArchivedTasks();
   }, []);
 
   const handleDeleteTask = async (id) => {
     try {
       await deleteTask(id);
-      setImportantTasks((prev) => prev.filter((task) => task.id !== id));
+      setArchivedTasks((prev) => prev.filter((task) => task.id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -52,7 +53,7 @@ const ImportantTasksList = () => {
         new Date().toISOString().slice(0, 10)
       );
 
-      setImportantTasks((prev) =>
+      setArchivedTasks((prev) =>
         prev.map((task) =>
           task.id === taskId
             ? {
@@ -64,7 +65,7 @@ const ImportantTasksList = () => {
         )
       );
 
-      fetchImportantTasks();
+      fetchArchivedTasks();
     } catch (error) {
       console.error("Error updating task:", error);
     }
@@ -74,10 +75,10 @@ const ImportantTasksList = () => {
     <div className="wrapper">
       <Box>
         <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-          Important Tasks
+          Archived Tasks
         </Typography>
 
-        {importantTasks === null ? (
+        {archivedTasks === null ? (
           <Box
             sx={{
               display: "flex",
@@ -89,18 +90,17 @@ const ImportantTasksList = () => {
           >
             <CircularProgress />
           </Box>
-        ) : importantTasks && importantTasks.length > 0 ? (
+        ) : archivedTasks && archivedTasks.length > 0 ? (
           <Box
-            component={TransitionGroup}
             sx={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(410px, 410px))",
               gap: "20px",
-              justifyContent: "start",
+              justifyContent: "center",
               justifyItems: "flex-start",
             }}
           >
-            {importantTasks.map((task) => (
+            {archivedTasks.map((task) => (
               <TaskComponent
                 key={task.id}
                 id={task.id}
@@ -112,6 +112,7 @@ const ImportantTasksList = () => {
                 isImportant={task.isImportant}
                 category={task.category}
                 cardColor={task.cardColor}
+                pageMode="archived"
               />
             ))}
           </Box>
@@ -126,10 +127,10 @@ const ImportantTasksList = () => {
           >
             <img
               src="/images/noImportant.png"
-              alt="No Important Tasks"
+              alt="No Todays Tasks"
               style={{ width: "auto", height: "500px" }}
             />
-            <Typography variant="body1">No important tasks found.</Typography>
+            <Typography variant="body1">No archived tasks found.</Typography>
           </Box>
         )}
       </Box>
@@ -137,4 +138,4 @@ const ImportantTasksList = () => {
   );
 };
 
-export default ImportantTasksList;
+export default ArchivedPage;

@@ -1,14 +1,49 @@
 {
   "tasks": [
     {
-      "id": "de05",
-      "title": "do the shopping",
-      "description": "",
+      "id": "dabe",
+      "title": "complete category tabs",
+      "description": "do tabs for each category",
+      "isImportant": true,
+      "category": "work",
+      "cardColor": "#d0e0ed",
+      "completed": true,
+      "createdAt": "2025-08-07",
+      "completedAt": "2025-08-11"
+    },
+    {
+      "id": "d56c",
+      "title": "complete the next step",
+      "description": "the next step is to create archieve tab, where user can return current task in todo",
+      "isImportant": true,
+      "category": "work",
+      "cardColor": "#d0e0ed",
+      "completed": true,
+      "createdAt": "2025-08-08",
+      "completedAt": "2025-08-11"
+    },
+    {
+      "id": "e08c",
+      "title": "create the stats tab",
+      "description": "The stats tab should contains diagrams and text information. The whole visual might be like: All completed tasks {number} +diagram by day for month; the most popular category; all quantity tasks by category. At the same time there should be another one page where there is no completed tasks",
+      "isImportant": false,
+      "category": "work",
+      "cardColor": "#d0e0ed",
+      "completed": false,
+      "createdAt": "2025-08-11",
+      "completedAt": "2025-08-11"
+    },
+    {
+      "id": "efa3",
+      "title": "go for a walk",
+      "description": "i should go for a walk for two hours but find comfortable shoes, because the last one made my feet hurts:(",
       "isImportant": true,
       "category": "another",
       "cardColor": "#e1dfda",
       "completed": false,
-      "createdAt": "2025-07-16"
+      "createdAt": "2025-08-11",
+      "completedAt": "2025-08-11"
     }
-  ]
+  ],
+  "completedTasks": []
 }

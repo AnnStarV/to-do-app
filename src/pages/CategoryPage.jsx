@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
-
 
 import TaskComponent from "../components/TaskComponent";
 import {
@@ -11,26 +10,31 @@ import {
   deleteTask,
 } from "../services/taskService";
 
-
 const CategoryPage = ({ category }) => {
   const [categoryTasks, setCategoryTasks] = useState(null);
-  const [completedTasks, setCompletedTasks] = useState([false]);
 
-  useEffect(() => {
-    setCategoryTasks(null);
-    const fetchCategoryTasks = async () => {
+   const fetchCategoryTasks = useCallback(async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         const tasks = await getTasksByCategory(category);
-        setCategoryTasks(tasks);
+
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            setCategoryTasks(tasks.filter((task) => task.completed === false));
+            resolve(); 
+          }, 800)
+        );
       } catch (error) {
         console.log("Error fetching category tasks:", error);
       }
-    };
+    }, [category]);
 
+  useEffect(() => {
+    setCategoryTasks(null);
+  
     fetchCategoryTasks();
-  }, [category]);
+  }, [fetchCategoryTasks]);
 
   const handleDeleteTask = async (id) => {
     try {
@@ -43,15 +47,25 @@ const CategoryPage = ({ category }) => {
 
   const toggleCompleted = async (taskId, currentCompleted) => {
     try {
-      const updatedTask = await updateTaskCompleted(taskId, !currentCompleted);
+      const updatedTask = await updateTaskCompleted(
+        taskId,
+        !currentCompleted,
+        new Date().toISOString().slice(0, 10)
+      );
 
       setCategoryTasks((prev) =>
         prev.map((task) =>
           task.id === taskId
-            ? { ...task, completed: updatedTask.completed }
+            ? {
+                ...task,
+                completed: updatedTask.completed,
+                completedAt: updatedTask.completedAt,
+              }
             : task
         )
       );
+
+      fetchCategoryTasks();
     } catch (error) {
       console.error("Error updating task:", error);
     }

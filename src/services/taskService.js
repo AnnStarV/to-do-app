@@ -22,6 +22,17 @@ export const getImportantTasks = async () => {
   return await response.json();
 };
 
+export const getCompletedTasks = async () => {
+  const response = await fetch("http://localhost:4000/tasks?completed=true");
+
+  if (!response.ok) {
+    throw new Error("Ошибка при загрузке выполненных задач");
+  }
+
+  return await response.json();
+};
+
+
 export const getTasksByCategory = async (category) => {
   const response =  await fetch(`http://localhost:4000/tasks?category=${category}`);
 
@@ -66,13 +77,13 @@ export const deleteTask = async (id) => {
   return await response.json();
 };
 
-export const updateTaskCompleted = async (taskId, completed) => {
+export const updateTaskCompleted = async (taskId, completed, date) => {
   const response = await fetch(`http://localhost:4000/tasks/${taskId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ completed }),
+    body: JSON.stringify({ completed, completedAt: date }),
   });
 
   if (!response.ok) {

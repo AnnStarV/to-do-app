@@ -8,6 +8,8 @@ import TodayPage from './pages/TodayPage';
 import CreatePage from './pages/CreatePage';
 import ImportantTasksPage from './pages/ImportantTasksPage';
 import CategoryPage from './pages/CategoryPage';
+import ArchivedPage from './pages/ArchivedPage';
+//import StatsPage from './pages/StatsPage';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/myday" element={<TodayPage />} />
             <Route path="/create" element={<CreatePage />} />
             <Route path="/important" element={<ImportantTasksPage />} />
+            <Route path="/archived" element={<ArchivedPage />} />
+            {/* <Route path="/stats" element={<StatsPage />} /> */}
             <Route path="/work" element={<CategoryPage category="work" />} />
             <Route path="/home" element={<CategoryPage category="home" />} />
             <Route path="/hobby" element={<CategoryPage category="hobby" />} />

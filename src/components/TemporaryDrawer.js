@@ -16,12 +16,14 @@ import WbSunny from "@mui/icons-material/WbSunny";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import Grade from "@mui/icons-material/Grade";
 import Analytics from "@mui/icons-material/Analytics";
+import Archieve from "@mui/icons-material/Archive";
 
 const menuItemsPrimary = [
   { label: "Create", icon: <AddCircleOutline />, path: "/create" },
   { label: "My Day", icon: <WbSunny />, path: "/myDay" },
   { label: "Important", icon: <Grade />, path: "/important" },
   { label: "Stats", icon: <Analytics />, path: "/stats" },
+  { label: "Archived", icon: <Archieve />, path: "/archived" },
 ];
 
 const menuItemsSecondary = [
